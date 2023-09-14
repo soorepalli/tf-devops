@@ -10,4 +10,16 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- task: TerraformInstaller@1
+  displayName: Terraform Initializing
+  inputs:
+    terraformVersion: 'latest'
 
+- task: TerraformTaskV4@4
+  displayName: Terraform Backend Configuration
+  inputs:
+    provider: 'aws'
+    command: 'init'
+    backendServiceAWS: 'tfpractise-aws'
+    backendAWSBucketName: 'tfpractise-aws'
+    backendAWSKey: 'state/tfpractise.tfstate'
