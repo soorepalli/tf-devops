@@ -1,0 +1,25 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: TerraformInstaller@1
+  displayName: Terraform Initializing
+  inputs:
+    terraformVersion: 'latest'
+
+- task: TerraformTaskV4@4
+  displayName: Terraform Backend Configuration
+  inputs:
+    provider: 'aws'
+    command: 'init'
+    backendServiceAWS: 'tfpractise-aws'
+    backendAWSBucketName: 'tfpractise-aws'
+    backendAWSKey: 'state/tfpractise.tfstate'
